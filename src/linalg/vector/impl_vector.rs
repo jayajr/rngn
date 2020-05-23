@@ -22,6 +22,24 @@ impl Vector {
             z: c,
         }
     }
+
+    pub fn as_array(self) -> [f64;3] {
+        [self.x, self.y, self.z]
+    }
+
+    pub fn from_array<T: ToPrimitive + Copy>(array: [T;3]) -> Vector {
+        Vector::new(array[0], array[1], array[2])
+    }
+
+    pub fn as_tuple(self) -> (f64, f64, f64) {
+        (self.x, self.y, self.z)
+    }
+
+    pub fn from_tuple<T: ToPrimitive, U: ToPrimitive, V:ToPrimitive>(
+        tuple: (T, U, V)
+    ) -> Vector {
+        Vector::new(tuple.0, tuple.1, tuple.2)
+    }
 }
 
 impl Clone for Vector {
@@ -32,7 +50,6 @@ impl Clone for Vector {
             z: self.z,
         }
     }
-
 }
 
 impl Display for Vector {
