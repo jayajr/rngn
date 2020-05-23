@@ -24,6 +24,17 @@ impl Vector {
     }
 }
 
+impl Clone for Vector {
+    fn clone(&self) -> Vector {
+        Vector {
+            x: self.x,
+            y: self.y,
+            z: self.z,
+        }
+    }
+
+}
+
 impl Display for Vector {
     fn fmt(&self, fmt: &mut Formatter) -> Result<(), Error> {
         write!(

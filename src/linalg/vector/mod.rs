@@ -1,6 +1,7 @@
+mod impl_ops;
 mod impl_vector;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, PartialOrd, Copy)]
 pub struct Vector {
     x: f64,
     y: f64,
