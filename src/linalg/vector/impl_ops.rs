@@ -28,10 +28,14 @@ impl Vector {
 
     pub fn unit(self) -> Vector {
         let mag = self.magnitude();
-        Vector {
-            x: self.x / mag,
-            y: self.y / mag,
-            z: self.z / mag,
+        if mag == 0.0 {
+            Vector::new(0, 0, 0)
+        } else {
+            Vector {
+                x: self.x / mag,
+                y: self.y / mag,
+                z: self.z / mag,
+            }
         }
     }
 }
@@ -224,6 +228,9 @@ fn magnitude_test() {
 
     let c = Vector::new(5, 12, 0);
     assert!(c.magnitude() == 13.0);
+
+    let d = Vector::new(0,0,0);
+    assert!(d.magnitude() == 0.0);
 }
 
 #[test]
@@ -236,4 +243,8 @@ fn unit_test() {
     let rad2 = (2.0 as f64).sqrt();
     let allowed_error = 1e-10;
     assert!(b.unit() - Vector::new(rad2, rad2, 0) < Vector::new(allowed_error, allowed_error, allowed_error));
+
+    let z = Vector::new(0, 0, 0);
+    println!("{:?}", z.unit());
+    assert!(z.unit() == Vector::new(0,0,0))
 }
