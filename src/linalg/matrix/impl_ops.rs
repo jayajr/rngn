@@ -48,26 +48,47 @@ impl AddAssign for Matrix {
     }
 }
 
-/*
 impl Sub for Matrix {
-    type Output = Matrix;
-    fn sub(self, vec: Matrix) -> Matrix {
-        Matrix {
-            x: self.x - vec.x,
-            y: self.y - vec.y,
-            z: self.z - vec.z,
+    type Output = Option<Matrix>;
+    fn sub(self, mat: Matrix) -> Option<Matrix> {
+    match 
+            self.m == mat.m
+        && self.n == mat.n {
+            true => {
+                let (m,n) = (self.m, self.n);
+                let mut retmat = Matrix::default(m, n);
+                for i in 0..m {
+                    for j in 0..n {
+                        retmat.data[i][j] = self.data[i][j] - mat.data[i][j];
+                    }
+                }
+                Some(retmat)
+            }
+            false => None,
         }
     }
 }
 
 impl SubAssign for Matrix {
     fn sub_assign(&mut self, rhs: Matrix) {
-        self.x -= rhs.x;
-        self.y -= rhs.y;
-        self.z -= rhs.z;
+        match 
+               self.m == rhs.m
+            && self.n == rhs.n {
+                true => {
+                    let (m,n) = (self.m, self.n);
+                    for i in 0..m {
+                        for j in 0..n {
+                            self.data[i][j] -= rhs.data[i][j];
+                        }
+                    }
+                }
+                false => (),
+        }
+
     }
 }
 
+/*
 impl Mul for Matrix {
     type Output = f64;
     fn mul(self, rhs: Matrix) -> f64 {
